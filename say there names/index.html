@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Say Their Names | Sauti Ya Taifa</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://kit.fontawesome.com/a2e0e6f91b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>They were not rioters. They were Kenyans.</h1>
+    <button class="cta-button" onclick="document.getElementById('addModal').style.display='block'">Add a Name</button>
+  </section>
+
+  <!-- Filters -->
+  <section class="filters">
+    <input type="text" id="searchInput" placeholder="Search by name..." />
+    <select id="countyFilter">
+  <option value="">All Counties</option>
+  <option value="Baringo">Baringo</option>
+  <option value="Bomet">Bomet</option>
+  <option value="Bungoma">Bungoma</option>
+  <option value="Busia">Busia</option>
+  <option value="Elgeyo-Marakwet">Elgeyo-Marakwet</option>
+  <option value="Embu">Embu</option>
+  <option value="Garissa">Garissa</option>
+  <option value="Homa Bay">Homa Bay</option>
+  <option value="Isiolo">Isiolo</option>
+  <option value="Kajiado">Kajiado</option>
+  <option value="Kakamega">Kakamega</option>
+  <option value="Kericho">Kericho</option>
+  <option value="Kiambu">Kiambu</option>
+  <option value="Kilifi">Kilifi</option>
+  <option value="Kirinyaga">Kirinyaga</option>
+  <option value="Kisii">Kisii</option>
+  <option value="Kisumu">Kisumu</option>
+  <option value="Kitui">Kitui</option>
+  <option value="Kwale">Kwale</option>
+  <option value="Laikipia">Laikipia</option>
+  <option value="Lamu">Lamu</option>
+  <option value="Machakos">Machakos</option>
+  <option value="Makueni">Makueni</option>
+  <option value="Mandera">Mandera</option>
+  <option value="Marsabit">Marsabit</option>
+  <option value="Meru">Meru</option>
+  <option value="Migori">Migori</option>
+  <option value="Mombasa">Mombasa</option>
+  <option value="Murang'a">Murang'a</option>
+  <option value="Nairobi">Nairobi</option>
+  <option value="Nakuru">Nakuru</option>
+  <option value="Nandi">Nandi</option>
+  <option value="Narok">Narok</option>
+  <option value="Nyamira">Nyamira</option>
+  <option value="Nyandarua">Nyandarua</option>
+  <option value="Nyeri">Nyeri</option>
+  <option value="Samburu">Samburu</option>
+  <option value="Siaya">Siaya</option>
+  <option value="Taita Taveta">Taita Taveta</option>
+  <option value="Tana River">Tana River</option>
+  <option value="Tharaka-Nithi">Tharaka-Nithi</option>
+  <option value="Trans Nzoia">Trans Nzoia</option>
+  <option value="Turkana">Turkana</option>
+  <option value="Uasin Gishu">Uasin Gishu</option>
+  <option value="Vihiga">Vihiga</option>
+  <option value="Wajir">Wajir</option>
+  <option value="West Pokot">West Pokot</option>
+</select>
+
+  </section>
+
+  <!-- Memorial Grid -->
+  <section class="memorial-grid" id="memorialGrid">
+    <!-- Example Cards -->
+    <div class="card" data-name="John Doe" data-county="Kisumu">
+      <img src="images/profile1.jpg" alt="John Doe" />
+      <h3>John Doe</h3>
+      <p>Kisumu • July 2023</p>
+      <small>Shot during peaceful protest. Father of two.</small>
+    </div>
+    <div class="card" data-name="Jane Wanjiku" data-county="Nairobi">
+      <img src="images/profile2.jpg" alt="Jane Wanjiku" />
+      <h3>Jane Wanjiku</h3>
+      <p>Nairobi • June 2023</p>
+      <small>Medical student. Remembered for her courage.</small>
+    </div>
+  </section>
+
+  <!-- Add Name Modal -->
+  <div id="addModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('addModal').style.display='none'">&times;</span>
+      <h2>Add a Name</h2>
+      <form action="https://formsubmit.co/keshwrld910@gmail.com" method="POST" enctype="multipart/form-data">
+        <input type="text" name="Full Name" placeholder="Full Name" required />
+        <input type="text" name="County" placeholder="County" required />
+        <input type="text" name="Date" placeholder="Date (optional)" />
+        <textarea name="Story" placeholder="Short story (optional)"></textarea>
+        <input type="file" name="Photo" accept="image/*" />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Simple search + filter logic
+    const searchInput = document.getElementById("searchInput");
+    const countyFilter = document.getElementById("countyFilter");
+    const grid = document.getElementById("memorialGrid");
+
+    function filterCards() {
+      const nameQuery = searchInput.value.toLowerCase();
+      const selectedCounty = countyFilter.value;
+
+      [...grid.children].forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const county = card.dataset.county;
+
+        const matchesName = name.includes(nameQuery);
+        const matchesCounty = !selectedCounty || county === selectedCounty;
+
+        card.style.display = matchesName && matchesCounty ? "block" : "none";
+      });
+    }
+
+    searchInput.addEventListener("input", filterCards);
+    countyFilter.addEventListener("change", filterCards);
+  </script>
+</body>
+</html>
